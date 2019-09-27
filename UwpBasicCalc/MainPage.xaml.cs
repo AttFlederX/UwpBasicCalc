@@ -22,9 +22,37 @@ namespace UwpBasicCalc
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        private bool _isOnStandby;
+        private string _currentOperation;
+
         public MainPage()
         {
             this.InitializeComponent();
+
+            _isOnStandby = true;
+            _currentOperation = string.Empty;
+        }
+
+        private void DigitButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button digitButton)
+            {
+                var digit = digitButton.Content.ToString();
+                if (_isOnStandby)
+                {
+                    outputTextBlock.Text = digit;
+                    _isOnStandby = false;
+                }
+                else
+                {
+                    outputTextBlock.Text += digit;
+                }
+            }
+        }
+
+        private void ZeroButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

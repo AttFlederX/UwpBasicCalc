@@ -5,10 +5,202 @@
     xmlns:local="using:UwpBasicCalc"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:media="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="{ThemeResource BackgroundAcrylicBrush}">
 
-    <Grid>
+    <Page.Resources>
+        <ResourceDictionary>
+
+            <!--acrylic brushes-->
+            <media:AcrylicBrush x:Key="ButtonAcrylicBrush" BackgroundSource="Backdrop"
+                TintOpacity="0.5" TintColor="#AA000000" FallbackColor="#AA000000" />
+
+            <Style x:Key="MemoryButtonStyle" TargetType="Button">
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="HorizontalAlignment" Value="Stretch" />
+                <Setter Property="VerticalAlignment" Value="Stretch" />
+                <Setter Property="Width" Value="72" />
+                <Setter Property="FontWeight" Value="Medium" />
+            </Style>
+
+            <Style x:Key="CalculatorButtonStyle" TargetType="Button">
+                <Setter Property="Background" Value="{ThemeResource ButtonAcrylicBrush}" />
+                <Setter Property="HorizontalAlignment" Value="Stretch" />
+                <Setter Property="VerticalAlignment" Value="Stretch" />
+                <Setter Property="FontWeight" Value="Normal" />
+                <Setter Property="FontSize" Value="18" />
+            </Style>
+
+            <Style x:Key="DigitButtonStyle" TargetType="Button" BasedOn="{StaticResource CalculatorButtonStyle}">
+                <Setter Property="Background" Value="#FF202020" />
+                <Setter Property="FontWeight" Value="Medium" />
+                <Setter Property="FontSize" Value="28" />
+            </Style>
+
+        </ResourceDictionary>
+    </Page.Resources>
+
+    <Grid Padding="4"
+          RowSpacing="4"
+          ColumnSpacing="4">
+
+        <Grid.RowDefinitions>
+            <!--output field-->
+            <RowDefinition Height="2*" /> 
+
+            <!--memory ctrls-->
+            <RowDefinition Height="0.6*" /> 
+            
+            <!--calculator ctrls-->
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <!--output field-->
+        <TextBlock x:Name="outputTextBlock"
+                   Grid.Row="0"
+                   Grid.ColumnSpan="4"
+                   HorizontalAlignment="Stretch"
+                   VerticalAlignment="Center"
+                   HorizontalTextAlignment="End"
+                   Text="0." 
+                   TextWrapping="Wrap"
+                   TextAlignment="Right"
+                   FontSize="56"
+                   FontWeight="Medium" />
+
+        <!--memory ctrls-->
+        <StackPanel Grid.Row="1"
+                    Grid.ColumnSpan="4"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Stretch"
+                    Spacing="8">
+            <Button Style="{StaticResource MemoryButtonStyle}" Content="MC" />
+            <Button Style="{StaticResource MemoryButtonStyle}" Content="MR" />
+            <Button Style="{StaticResource MemoryButtonStyle}" Content="M+" />
+            <Button Style="{StaticResource MemoryButtonStyle}" Content="M-" />
+            <Button Style="{StaticResource MemoryButtonStyle}" Content="MS" />
+        </StackPanel>
+        
+        
+        <!--calc ctrls row 1-->
+        <Button Style="{StaticResource CalculatorButtonStyle}"
+                x:Name="PercentButton"
+                Grid.Row="2" Grid.Column="0"
+                Content="%" />
+        <Button Style="{StaticResource CalculatorButtonStyle}"
+                x:Name="SquareRootButton"
+                Grid.Row="2" Grid.Column="1"
+                Content="sqrt" />
+        <Button Style="{StaticResource CalculatorButtonStyle}" 
+                x:Name="SquareButton"
+                Grid.Row="2" Grid.Column="2"
+                Content="x^2" />
+        <Button Style="{StaticResource CalculatorButtonStyle}" 
+                x:Name="ReciprocalButton"
+                Grid.Row="2" Grid.Column="3"
+                Content="1/x" />
+
+        <!--calc ctrls row 2-->
+        <Button Style="{StaticResource CalculatorButtonStyle}"
+                x:Name="ClearEntryButton"
+                Grid.Row="3" Grid.Column="0"
+                Content="CE" />
+        <Button Style="{StaticResource CalculatorButtonStyle}"
+                x:Name="ClearButton"
+                Grid.Row="3" Grid.Column="1"
+                Content="C" />
+        <Button Style="{StaticResource CalculatorButtonStyle}" 
+                x:Name="BackspaceButton"
+                Grid.Row="3" Grid.Column="2"
+                Content="Bksp" />
+        <Button Style="{StaticResource CalculatorButtonStyle}" 
+                Grid.Row="3" Grid.Column="3"
+                Content="/" />
+
+        <!--calc ctrls row 3-->
+        <Button Style="{StaticResource DigitButtonStyle}"
+                Grid.Row="4" Grid.Column="0"
+                Content="7"
+                Click="DigitButton_Click" />
+        <Button Style="{StaticResource DigitButtonStyle}"
+                Grid.Row="4" Grid.Column="1"
+                Content="8"
+                Click="DigitButton_Click" />
+        <Button Style="{StaticResource DigitButtonStyle}" 
+                Grid.Row="4" Grid.Column="2"
+                Content="9"
+                Click="DigitButton_Click" />
+        <Button Style="{StaticResource CalculatorButtonStyle}" 
+                Grid.Row="4" Grid.Column="3"
+                Content="*" />
+
+        <!--calc ctrls row 4-->
+        <Button Style="{StaticResource DigitButtonStyle}"
+                Grid.Row="5" Grid.Column="0"
+                Content="4"
+                Click="DigitButton_Click" />
+        <Button Style="{StaticResource DigitButtonStyle}"
+                Grid.Row="5" Grid.Column="1"
+                Content="5"
+                Click="DigitButton_Click" />
+        <Button Style="{StaticResource DigitButtonStyle}" 
+                Grid.Row="5" Grid.Column="2"
+                Content="6"
+                Click="DigitButton_Click" />
+        <Button Style="{StaticResource CalculatorButtonStyle}" 
+                Grid.Row="5" Grid.Column="3"
+                Content="-" />
+
+        <!--calc ctrls row 5-->
+        <Button Style="{StaticResource DigitButtonStyle}"
+                Grid.Row="6" Grid.Column="0"
+                Content="1"
+                Click="DigitButton_Click" />
+        <Button Style="{StaticResource DigitButtonStyle}"
+                Grid.Row="6" Grid.Column="1"
+                Content="2"
+                Click="DigitButton_Click" />
+        <Button Style="{StaticResource DigitButtonStyle}" 
+                Grid.Row="6" Grid.Column="2"
+                Content="3"
+                Click="DigitButton_Click" />
+        <Button Style="{StaticResource CalculatorButtonStyle}" 
+                Grid.Row="6" Grid.Column="3"
+                Content="+" />
+
+        <!--calc ctrls row 6-->
+        <Button Style="{StaticResource CalculatorButtonStyle}"
+                x:Name="ChangeSignButton"
+                Grid.Row="7" Grid.Column="0"
+                Content="+/-" />
+        <Button Style="{StaticResource DigitButtonStyle}"
+                x:Name="ZeroButton"
+                Grid.Row="7" Grid.Column="1"
+                Content="0"
+                Click="ZeroButton_Click" />
+        <Button Style="{StaticResource CalculatorButtonStyle}" 
+                x:Name="DecimalPointButton"
+                Grid.Row="7" Grid.Column="2"
+                Content="." />
+        <Button Style="{StaticResource CalculatorButtonStyle}" 
+                x:Name="EqualsButton"
+                Grid.Row="7" Grid.Column="3"
+                Content="=" />
 
     </Grid>
 </Page>
